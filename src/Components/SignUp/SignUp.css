@@ -18,7 +18,7 @@
 }
 
 .signup-grid {
-  width: 100%;
+  
   display: grid;
   grid-template-columns: 0.1fr 1.5fr 8fr;
   grid-gap: 10px;
@@ -100,4 +100,9 @@
 .btn-danger {
   background-color: #dc3545;
   color: #fff;
+}
+
+.error {
+    color: red;
+    font-size: small;
 }

@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Navbar from './Components/Navbar/Navbar';
 import Landing_Page from './Components/Landing_Page/Landing_Page';
-import Sing_Up from './Components/SignUp/Sing_Up';
+import Sign_Up from './Components/SignUp/Sign_Up';
 import Login from './Components/Login/Login';
 function App() {
 
@@ -15,7 +15,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Landing_Page />}/>
               <Route path="/Login" element={<Login />}/>
-              <Route path="/SignUp" element={<Sing_Up />}/>
+              <Route path="/SignUp" element={<Sign_Up />}/>
             </Routes>
         </BrowserRouter>
        
