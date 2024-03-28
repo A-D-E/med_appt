@@ -6,19 +6,21 @@ import Navbar from './Components/Navbar/Navbar';
 import Landing_Page from './Components/Landing_Page/Landing_Page';
 import Sign_Up from './Components/SignUp/Sign_Up';
 import Login from './Components/Login/Login';
+import Notification from './Components/Notification/Notification';
 function App() {
 
   return (
     <div className="App">
         <BrowserRouter>
-          <Navbar/>
-            <Routes>
-              <Route path="/" element={<Landing_Page />}/>
-              <Route path="/Login" element={<Login />}/>
-              <Route path="/SignUp" element={<Sign_Up />}/>
-            </Routes>
+            <Notification>
+                <Routes>
+                <Route path="/" element={<Landing_Page />}/>
+                <Route path="/Login" element={<Login />}/>
+                <Route path="/SignUp" element={<Sign_Up />}/>
+                
+                </Routes>
+            </Notification>
         </BrowserRouter>
-       
     </div>
   );
 }
