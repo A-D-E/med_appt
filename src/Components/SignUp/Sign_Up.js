@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { API_URL } from '../../config';
 import './SignUp.css';
 
 export default function SignUp() {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         name: '',
         phone: '',
@@ -17,7 +19,8 @@ export default function SignUp() {
         password: ''
       });
     
-      
+      const [showerr, setShowerr] = useState('');
+
       const validateInput = (field, value) => {
         let error = '';
     
@@ -76,9 +79,39 @@ export default function SignUp() {
                formData.password.length < 6; 
       };
     
-      const handleSubmit = (e) => {
+      const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Form data submitted:', formData);
+        const response = await fetch(`${API_URL}/api/auth/register`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                name: formData.name,
+                email: formData.email,
+                password: formData.password,
+                phone: formData.phone,
+            }),
+        });
+        const json = await response.json();
+        if (json.authtoken) {
+            sessionStorage.setItem("auth-token", json.authtoken);
+            sessionStorage.setItem("name", formData.name);
+            // phone and email
+            sessionStorage.setItem("phone", formData.phone);
+            sessionStorage.setItem("email", formData.email);
+            // Redirect to home page
+            navigate("/");   //on directing to home page you need to give logic to change login and signup buttons with name of the user and logout button where you have implemented Navbar functionality
+            window.location.reload();
+        } else {
+            if (json.errors) {
+                for (const error of json.errors) {
+                    setShowerr(error.msg);
+                }
+            } else {
+                setShowerr(json.error);
+            }
+        }
       };
   return (
     <div className="container" style={{ marginTop: "5%"}}>
@@ -118,6 +151,7 @@ export default function SignUp() {
                         <button type="reset" className="btn btn-danger mb-2 waves-effect waves-light">Reset</button>
                     </div>
                 </form>
+                {showerr && <div className="error">{showerr}</div>}
             </div>
         </div>
     </div>
