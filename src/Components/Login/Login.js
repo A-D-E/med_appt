@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { API_URL } from '../../config';
+
 import './Login.css';
 
 export default function Login() {
@@ -12,6 +14,14 @@ export default function Login() {
     email: '',
     password: '',
   });
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (sessionStorage.getItem("auth-token")) {
+      navigate("/")
+    }
+  }, []);
 
   const validateInput = (field, value) => {
     let error = '';
@@ -27,8 +37,8 @@ export default function Login() {
       case 'password':
         if (!value) {
           error = 'This field is required';
-        } else if (value.length < 6) {
-          error = 'Password must be at least 6 characters';
+        } else if (value.length < 8) {
+          error = 'Password must be at least 8 characters';
         }
         break;
       default:
@@ -54,13 +64,39 @@ export default function Login() {
   };
 
   const isSubmitDisabled = () => {
-    return Object.values(errors).some(error => error) || !formData.email || !formData.password || formData.password.length < 6;
+    return Object.values(errors).some(error => error) || !formData.email || !formData.password || formData.password.length < 8;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-   
-    console.log('Login data submitted:', formData);
+
+    const res = await fetch(`${API_URL}/api/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          // name: name,
+          email:formData.email,
+          password: formData.password,
+        }),
+      });
+      const json = await res.json();
+      if (json.authtoken) {
+        sessionStorage.setItem('auth-token', json.authtoken);
+    
+        sessionStorage.setItem('email', formData.email);
+        navigate('/');
+        window.location.reload()
+      } else {
+        if (json.errors) {
+          for (const error of json.errors) {
+            alert(error.msg);
+          }
+        } else {
+          alert(json.error);
+        }
+      }
   };
 
   return (
