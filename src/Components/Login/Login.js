@@ -15,6 +15,8 @@ export default function Login() {
     password: '',
   });
 
+  const [passwordRecovery, setPasswordRecovery] = useState(false)
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -159,7 +161,8 @@ export default function Login() {
               </button>
             </div>
             <br />
-            <div className="login-text">Forgot Password?</div>
+            <div className="login-text" style={{cursor: "pointer"}} onClick={() => setPasswordRecovery(!passwordRecovery)}>Forgot Password?</div>
+            {passwordRecovery && <input className="form-control" type='email' id='email' name='email' placeholder='Enter your email' />}
           </form>
         </div>
       </div>
