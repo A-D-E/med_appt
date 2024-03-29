@@ -3,19 +3,33 @@ import "./ReportsLayout.css";
 const ReportsLayout = () => {
  
   const reportsData = [
-    { id: 1, doctorName: "Dr. Smith", doctorSpeciality: "Cardiologist" },
-    { id: 2, doctorName: "Dr. Johnson", doctorSpeciality: "Dermatologist" },
-    { id: 3, doctorName: "Dr. Elizabeth Clark", doctorSpeciality: "Gynecologist/Obstetrician"}
+    { id: 1, doctorName: "Dr. Smith", doctorSpeciality: "Cardiologist", report: "CardiologistReport-DrSmith" },
+    { id: 2, doctorName: "Dr. Johnson", doctorSpeciality: "Dermatologist", report: "DermatologistReport-DrJohnson" },
+    { id: 3, doctorName: "Dr. Elizabeth Clark", doctorSpeciality: "Gynecologist/Obstetrician", report: "GynecologistObstetricianReport-DrElizabethClark"}
     
     
   ];
 
   const handleViewReport = (reportId) => {
-    
+    const url = reportsData.find(el => el.id === reportId).report
+    window.open(`/${url}.pdf`, '_blank');
   };
 
-  const handleDownloadReport = (reportId) => {
-    
+  const handleDownloadReport = async (reportId) => {
+    const file = reportsData.find(el => el.id === reportId).report
+    try {
+        const response = await fetch(`/${file}.pdf`);
+        const blob = await response.blob();
+        const downloadUrl = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = downloadUrl;
+        link.setAttribute('download', `${file}.pdf`); 
+        document.body.appendChild(link);
+        link.click();
+        link.parentNode.removeChild(link);
+      } catch (error) {
+        console.error('Error:', error);
+      }
   };
 
   return (
