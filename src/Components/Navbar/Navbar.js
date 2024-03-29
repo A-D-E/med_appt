@@ -71,7 +71,10 @@ const Navbar = () => {
                 {isLoggedIn ? (
                     <>
                         <li className="link dropdown" onClick={() => setShowDropdown(!showDropdown)}>Wellcome, {username.split('@')[0]} 
-                        {showDropdown && <div className="dropdown-content"><Link to="/profile">Your Profile</Link></div>}
+                        {showDropdown && <div className="dropdown-content">
+                            <Link className="dropdown-link" to="/profile">Your Profile</Link>
+                            <Link className="dropdown-link" to="/reports">Your Reports</Link>
+                            </div>}
                         </li>
                         
                         <li className="link">

@@ -1,0 +1,39 @@
+.reports {
+    margin: 15% auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.reports-card {
+    padding: 1rem;
+    border-radius: 5px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
+  button {
+    padding: 8px 12px;
+    cursor: pointer;
+    background-color: #2190ff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+  }
+  
+  button:hover {
+    background-color: #0e6ee7;
+  }
+  

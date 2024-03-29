@@ -71,6 +71,9 @@ nav {
     padding: 1rem;
     border-radius: 5px;
     margin-top: .5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 .nav__logo {
   font-size: 2rem;
