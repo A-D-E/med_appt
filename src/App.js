@@ -10,6 +10,7 @@ import Notification from './Components/Notification/Notification';
 import FindDoctorSearch from './Components/InstantConsultation/FindDoctorSearch/FindDoctorSearch';
 import InstantConsultation from './Components/InstantConsultation/InstantConsultation'
 import ReportsLayout from './Components/ReportsLayout/ReportsLayout'
+import ReviewForm from './Components/ReviewForm/ReviewForm';
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
                         <Route path='/instant-consultation' element={<InstantConsultation />} />
                         <Route path="/profile" element={<ProfileForm />} />
                         <Route path='/reports' element={<ReportsLayout />} />
+                        <Route path='/reviews' element={<ReviewForm />} />
                     </Routes>
                 </Notification>
             </BrowserRouter>
