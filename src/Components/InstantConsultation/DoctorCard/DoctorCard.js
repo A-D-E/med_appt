@@ -89,6 +89,8 @@ const DoctorCard = ({ name, speciality, experience, ratings, profileP }) => {
                     <div className="bookedInfo" key={appointment.id}>
                       <p>Name: {appointment.name}</p>
                       <p>Phone Number: {appointment.phoneNumber}</p>
+                      <p>Date: {appointment.appointmentDate}</p>
+                      <p>Booked timeslot: {appointment.timeSlot}</p>
                       <button onClick={() => handleCancel(appointment.id)}>Cancel Appointment</button>
                     </div>
                   ))}

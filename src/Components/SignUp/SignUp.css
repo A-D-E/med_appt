@@ -102,6 +102,11 @@
   color: #fff;
 }
 
+.btn-disabled {
+    background-color: rgb(131, 131, 131) !important;
+    cursor:not-allowed !important;
+}
+
 .error {
     color: red;
     font-size: small;
