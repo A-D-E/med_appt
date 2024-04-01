@@ -6,29 +6,50 @@ import AppointmentForm from '../../AppointmentForm/AppointmentForm'
 import { v4 as uuidv4 } from 'uuid';
 
 
-const DoctorCard = ({ name, speciality, experience, ratings, profileP }) => {
+const DoctorCard = ({ name, speciality, experience, ratings, profilePic }) => {
   const [showModal, setShowModal] = useState(false);
   const [appointments, setAppointments] = useState([]);
 
-  const handleBooking = () => {
-    setShowModal(true);
-  };
 
   const handleCancel = (appointmentId) => {
-    const updatedAppointments = appointments.filter((appointment) => appointment.id !== appointmentId);
-    setAppointments(updatedAppointments);
+    const updatedAppointments = appointments.filter(appointment => appointment.id !== appointmentId);
+        setAppointments(updatedAppointments);
+        localStorage.setItem(name, JSON.stringify(updatedAppointments));
+        if (updatedAppointments.length === 0) {
+            localStorage.removeItem(name);
+            localStorage.removeItem("doctorData");
+        }
+        setShowModal(false);
+        window.location.reload()
   };
 
   const handleFormSubmit = (appointmentData) => {
     const newAppointment = {
-      id: uuidv4(),
-      ...appointmentData,
+        id: uuidv4(),
+        ...appointmentData
     };
+    const doctorData = {
+        name: name,
+        speciality: speciality,
+    };
+    localStorage.setItem('doctorData', JSON.stringify(doctorData));
     const updatedAppointments = [...appointments, newAppointment];
     setAppointments(updatedAppointments);
+    localStorage.setItem(name, JSON.stringify(updatedAppointments));
     setShowModal(false);
+    window.location.reload()
   };
 
+  useEffect(() => {
+    const storedAppointments = JSON.parse(localStorage.getItem(name));
+    if (Array.isArray(storedAppointments)) {
+        setAppointments(storedAppointments);
+    } else {
+        setAppointments([]); 
+    }
+}, [name]);
+
+  
   return (
     <div className="doctor-card-container">
       <div className="doctor-card-details-container">

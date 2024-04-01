@@ -50,10 +50,13 @@ const AppointmentForm = ({ doctorName, doctorSpeciality, onSubmit }) => {
             timeSlot,
         });
 
-        sessionStorage.setItem('doctorData', JSON.stringify({name,
+        localStorage.setItem('doctorData', JSON.stringify({name,
             phoneNumber,
             appointmentDate,
-            timeSlot,}))
+            timeSlot,
+            doctorName,
+            doctorSpeciality
+        }))
         
         // Reset the form fields and errors
         setName('');
